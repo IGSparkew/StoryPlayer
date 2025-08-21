@@ -1,0 +1,5 @@
+{
+    "Init" : "Village",
+    "Boards": ["Village", "Forest", "Castle"],
+    "Items" : ["Health Potion"]
+}

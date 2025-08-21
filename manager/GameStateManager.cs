@@ -1,0 +1,166 @@
+
+public class GameStateManager
+{
+    private Board? currentBoard;
+    private List<Item> inventory;
+
+    private Dictionary<string, Item> worldItems;
+
+    private Dictionary<string, bool> flags;
+
+    public int MenuIndex { get; set; }
+
+    public bool IsInputMenu { get; set; }
+
+    public BoardManager BoardManager { get; set; }
+
+    private IScriptReader scriptReader;
+
+    public SettingStory? SettingStory { get; set; }
+
+    public List<string> logs { get; set; } = new List<string>();
+
+    public GameStateManager()
+    {
+        inventory = new List<Item>();
+        BoardManager = new BoardManager();
+        currentBoard = null;
+        flags = new Dictionary<string, bool>();
+        worldItems = new Dictionary<string, Item>();
+        scriptReader = ServiceLoader.GetService<IScriptReader>("ScriptReader");
+        MenuIndex = 0;
+        IsInputMenu = false;
+    }
+
+    public void SetFlag(string flagName, bool value)
+    {
+        flags.Add(flagName, value);
+    }
+
+    public bool GetFlag(string flagName)
+    {
+        if (!flags.ContainsKey(flagName))
+        {
+            throw new KeyNotFoundException($"Flag '{flagName}' not found.");
+        }
+
+        return flags[flagName];
+    }
+
+    public bool HasFlag(string flagName)
+    {
+        return flags.ContainsKey(flagName);
+    }
+
+    public Board? GetCurrentBoard()
+    {
+        return currentBoard;
+    }
+
+    public void SetCurrentBoard(string boardName)
+    {
+        Board board = BoardManager.GetBoard(boardName);
+        if (board != null)
+        {
+            if (currentBoard != null && currentBoard.OnExit != "")
+            {
+                logs.Add("On Exit: " + scriptReader.run(currentBoard.OnExit, this, false));
+            }
+
+            currentBoard = board;
+
+            if (currentBoard.OnEnter != "")
+            {
+                logs.Add("On Enter: " + scriptReader.run(currentBoard.OnEnter, this, false));
+            }
+
+        }
+    }
+
+    public void update()
+    {
+        if (logs.Count > 0)
+        {
+            Console.WriteLine(logs[0]);
+            logs.RemoveAt(0);
+        }
+    }
+
+    public void AddItemInWorld(Item item)
+    {
+        worldItems.Add(item.Name, item);
+    }
+
+    public void RemoveItemFromWorld(string itemName)
+    {
+        worldItems.Remove(itemName);
+    }
+
+    public bool HasItemInWorld(string itemName)
+    {
+        return worldItems.ContainsKey(itemName);
+    }
+
+    public Item? GetItemFromWorld(string itemName)
+    {
+       return worldItems.ContainsKey(itemName) ? worldItems[itemName] : null;
+    }
+
+    public void AddItemInInventory(Item item)
+    {
+        inventory.Add(item);
+    }
+
+    public void RemoveItemFromInventory(Item item)
+    {
+        inventory.Remove(item);
+    }
+
+    public bool HasItemInInventory(Item item)
+    {
+        return inventory.Contains(item);
+    }
+
+    public void IncrementMenuIndex()
+    {
+        MenuIndex++;
+        if (currentBoard != null)
+        {
+            if (MenuIndex > currentBoard.getLimitSelected())
+            {
+                MenuIndex = 0;
+            }
+        }
+    }
+
+    public void DecrementMenuIndex()
+    {
+        MenuIndex--;
+        if (currentBoard != null)
+        {
+            if (MenuIndex < 0)
+            {
+                MenuIndex = currentBoard.getLimitSelected();
+            }
+        }
+    }
+
+
+    public void ExecuteAction()
+    {
+        if (currentBoard == null) return;
+
+        if (currentBoard.isAction(MenuIndex))
+        {
+            int index = MenuIndex - currentBoard.Connections.Count;
+            Action action = currentBoard.Actions[index];
+            String result = this.BoardManager.ExecuteAction(action, this, scriptReader);
+            // Todo add something to do with result
+        }
+        else
+        {
+            string key = currentBoard.Connections.Keys.ElementAt(MenuIndex);
+            this.SetCurrentBoard(key);
+        }
+    }
+}

@@ -1,0 +1,52 @@
+For a long time later:
+
+- add save state system
+- add to index file all the ressource to load 
+- make ressource in story file
+- make story file into byte object
+- add sound 
+- add image
+- add editing system
+
+
+Things ok:
+- Renderer Working
+- GameScreen interact with Default Stories
+- Futur:
+    - Change menue index with limit of what is show
+    - add switched board function in gameStateManager 
+        - with index fix get List of key 
+        - get key selected
+        - update gameStateManager current board
+    - Add StoryDefault in Json and add Parser
+        - add system who parse first settings.json to get config of stories and get the first board
+        - remove StoryDefault.cs
+    - Add Items
+    - Make action and script in python + add generic action
+    - Make internal script 
+    - Add OnEnter / OnExit event script
+    - Add UiElemnts : Selected / TextUI
+
+
+Futur later:
+    - Renderer working with element but add new way to setup board in renderer 
+        - add observer class on gamestate to update currentBoard value in renderer in GameScene
+    - Make Rendere Less Magic number
+        - Make Render Anchor + add template to setup in board
+    - add ui for player and board 
+        - show inventory / message infos + (add in script api)
+    - Add data file to get data for actor of story (ame, ennemies, etc..)
+    - Add Actor Manager and move inventory to player actor
+    - Add to script a system to hide menue
+            - add field to action to hide some menu or make them none selectable or other color
+    - Add CommandManager to let player write words
+    - Add selecter to load stories
+    - Add start init menu
+    - on parse add verification on connection board existing
+    - Add custom variable system 
+        - if had {#name} in a text renderer replace by string value
+        - add color system with hexa
+        
+Think of:
+    - Add trigger basic in engine + custom trigger with script
+        - Input tags... (find other input)    

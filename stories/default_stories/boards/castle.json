@@ -1,0 +1,9 @@
+{
+    "Name": "Castle",
+    "Description": "A grand castle stands atop a hill, its towering spires reaching towards the sky. The castle is surrounded by a deep moat, and drawbridges provide access to the main gate. Inside, the halls are filled with the echoes of history, and the air is thick with the scent of old stone and polished wood.",
+    "Connections": {
+        "Village": "To the west lies the village, a place of warmth and community.",
+        "Forest": "To the south stretches the forest, a place of mystery and adventure."
+    },
+    "OnEnter": "test"
+}
