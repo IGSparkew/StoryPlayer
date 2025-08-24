@@ -1,5 +1,8 @@
 {
     "Init" : "Village",
     "Boards": ["Village", "Forest", "Castle"],
-    "Items" : ["Health Potion"]
+    "Items" : ["Health Potion"],
+    "UIelments": [
+        {"Type": "Menu", "Anchor": "center-center", "Margin": [-300, 100]}
+    ]
 }

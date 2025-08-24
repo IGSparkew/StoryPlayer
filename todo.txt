@@ -1,6 +1,7 @@
 For a long time later:
 
 - add save state system
+- add command to generate a basic story
 - add to index file all the ressource to load 
 - make ressource in story file
 - make story file into byte object
@@ -26,13 +27,11 @@ Things ok:
     - Make internal script 
     - Add OnEnter / OnExit event script
     - Add UiElemnts : Selected / TextUI
-
+    - Make Rendere Less Magic number
 
 Futur later:
     - Renderer working with element but add new way to setup board in renderer 
-        - add observer class on gamestate to update currentBoard value in renderer in GameScene
-    - Make Rendere Less Magic number
-        - Make Render Anchor + add template to setup in board
+        - No juste make an uiLayout who load the settings from story
     - add ui for player and board 
         - show inventory / message infos + (add in script api)
     - Add data file to get data for actor of story (ame, ennemies, etc..)

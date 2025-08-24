@@ -2,9 +2,13 @@ using System.Numerics;
 
 public class RenderPosition
 {
-    public Vector2 Position { get; private set; }
+    public Vector2 Position { get; set; }
 
     private Vector2 initPosition;
+
+    private RenderConfig renderConfigX;
+
+    private RenderConfig renderConfigY;
 
     private static float CENTER_WIDTH = Settings.WIDTH / 2;
     private static float CENTER_HEIGHT = Settings.HEIGHT / 2;
@@ -32,16 +36,18 @@ public class RenderPosition
 
         if (renderConfigY == RenderConfig.CENTER)
         {
-            x = CENTER_HEIGHT;
+            y = CENTER_HEIGHT;
         }
 
         if (renderConfigY == RenderConfig.DOWN)
         {
-            x = Settings.HEIGHT;
+            y = Settings.HEIGHT;
         }
 
         Position = new Vector2(x, y);
         this.initPosition = Position;
+        this.renderConfigX = renderConfigX;
+        this.renderConfigY = renderConfigY;
     }
 
     public void AddGap(float _g, bool inWidth)
@@ -55,15 +61,32 @@ public class RenderPosition
         }
         else
         {
-            nY = _g;
+            nY += _g;
         }
 
-        Position = new Vector2(nX, nY);
+        this.Position = new Vector2(nX, nY);
     }
 
     public void resetGap()
     {
-        Position = initPosition;
+        this.Position = initPosition;
+    }
+
+    public RenderPosition Clone()
+    {
+        RenderPosition renderPosition = RenderPosition._default();
+        renderPosition.Position = new Vector2(this.Position.X, this.Position.Y);
+        return renderPosition;
+    }
+
+    public static RenderPosition _default()
+    {
+        return new RenderPosition(RenderConfig.LEFT, RenderConfig.TOP);
+    }
+
+    public override string ToString()
+    {
+        return "X:" + Position.X.ToString() + " Y: " + Position.Y.ToString();
     }
 
 }
