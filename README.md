@@ -30,7 +30,7 @@ StoryPlayer is a C# application designed to help you create, manage, and play in
 
 ## Download 📦
 
-You can download StoryPlayer from [itch.io](https://yourusername.itch.io/storyplayer) for easy access! 🎉
+You can download StoryPlayer from [itch.io](https://igsparkew.itch.io/storyplayer) for easy access! 🎉
 
 ## Contributing 🤝
 
@@ -38,9 +38,8 @@ Contributions are welcome! Please submit issues or pull requests.
 
 ## ☕ Support & Coffee Tips
 
-If you enjoy using StoryPlayer and want to support development, consider buying me a coffee!  
-[Buy me a coffee](https://www.buymeacoffee.com/yourusername) ❤️
+If you enjoy using StoryPlayer and want to support development, consider buying me a coffee (later) 🍵
 
 ## License 📄
 
-This project is licensed under the MIT License.
+This project is licensed under the Apache 2.0 License.
