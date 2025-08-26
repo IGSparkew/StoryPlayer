@@ -30,7 +30,7 @@ StoryPlayer is a C# application designed to help you create, manage, and play in
 
 ## Download 📦
 
-You can download StoryPlayer from [itch.io](https://igsparkew.itch.io/storyplayer) for easy access! 🎉
+You can download StoryPlayer from [itch.io](https://sparkew.itch.io/storyplayer) for easy access! 🎉
 
 ## Contributing 🤝
 
