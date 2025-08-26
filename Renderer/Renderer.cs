@@ -3,7 +3,11 @@ using Raylib_cs;
 
 interface IRenderer
 {
-    public void DrawBoard(GameStateManager gameStateManager);
+    void AddElement(UIElement element);
+    void Clear();
+    void setCurrentRendererBoard(GameStateManager gameStateManager);
+    void Update(GameStateManager gameStateManager);
+    void Draw();
 
 }
 
@@ -12,41 +16,79 @@ class Renderer : IRenderer
 
     private IResourceManager _resourceManager;
     private Font _defaultFont;
-
-    private Rectangle rectangle;
-
-    private Vector2 descriptionPosition;
-
     private static int _defaultFontSize = 20;
-    
+
+    List<UIElement> elements;
 
     public Renderer()
     {
+        elements = new List<UIElement>();
         ServiceLoader.RegisterService<Renderer>("Renderer", this);
         _resourceManager = ServiceLoader.GetService<IResourceManager>("ResourceManager");
         _defaultFont = _resourceManager.GetFont("default");
-
-        descriptionPosition = new Vector2(100, 130);
-        rectangle = new Rectangle(descriptionPosition, new Vector2(400, descriptionPosition.Y + (Settings.HEIGHT + descriptionPosition.Y)));
     }
 
-    public void DrawBoard(GameStateManager gameStateManager)
+    public void Clear()
     {
+        elements.Clear();
+    }
+
+    public void AddElement(UIElement element)
+    {
+        this.elements.Add(element);
+    }
+
+    public void setCurrentRendererBoard(GameStateManager gameStateManager)
+    {
+
         Board? board = gameStateManager.GetCurrentBoard();
+        SettingStory? settingStory = gameStateManager.SettingStory;
 
-        if (board == null) return;
+        if (board == null || settingStory == null)
+        {
+            throw new Exception("Error can't load story");
+        }
 
-        TextUI titleBoardUi = new TextUI(_defaultFont, _defaultFontSize, board.Name, false, new RenderPosition(RenderConfig.LEFT, RenderConfig.TOP), Color.White);
-        TextUI descriptionBoardUi = new TextUI(_defaultFont, _defaultFontSize, board.Description, true, new RenderPosition(RenderConfig.CENTER, RenderConfig.TOP), Color.White, 600);
 
-        titleBoardUi.Margin = new Vector2(10, 10);
-        descriptionBoardUi.Margin = new Vector2(-300, 100);
+        Clear();
+        List<LayoutConfig> configs = settingStory.UIelements;
 
-        titleBoardUi.draw();
-        descriptionBoardUi.draw();
+        if (configs.Count == 0)
+        {
+            throw new Exception("Error no config founds for render this story with Path: " + settingStory.Path);
+        }
 
+
+        foreach (LayoutConfig config in configs)
+        {
+            switch (config.Type)
+            {
+                case "TextUI":
+                    addTextUIElement(config, board);
+                    break;
+                case "MenuUI":
+                    addMenuUIElement(config, board, gameStateManager);
+                    break;
+                default:
+                    throw new Exception("can't find this type of ui element: " + config.Type);
+            }
+        }
+    }
+
+    private void addTextUIElement(LayoutConfig config, Board board)
+    {
+        // change layout config to setup more parameters like font
+        LayoutConfigResolver resolver = LayoutConfigResolver.resolver(config, board);
+        RenderPosition position = PositionConfigResolver.resolvePosition(config.Anchor);
+
+        TextUI textUI = new TextUI(_defaultFont, _defaultFontSize, resolver.getValue(), config.IsWrapped, position, Color.White, config.MaxWidth);
+        textUI.Margin = config.GetMargin();
+        AddElement(textUI);
+    }
+
+    private void addMenuUIElement(LayoutConfig config, Board board, GameStateManager gameStateManager)
+    {
         List<string> options = board.Connections.Values.ToList<string>();
-
         foreach (Action action in board.Actions)
         {
             if (action.IsGuided)
@@ -55,9 +97,31 @@ class Renderer : IRenderer
             }
         }
 
-        RenderPosition menuPos = new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER);
-        MenuUI menuUI = new MenuUI(menuPos, Color.White, _defaultFont, _defaultFontSize, options, gameStateManager.MenuIndex);
-        menuUI.Margin = new Vector2(-300, 100);
-        menuUI.draw();
+        RenderPosition position = PositionConfigResolver.resolvePosition(config.Anchor);
+        //TODO: make padding in LayoutConfig
+        MenuUI menuUI = new MenuUI(position, Color.White, _defaultFont, _defaultFontSize, options, config.GetMargin(), new Vector2(10, 10),gameStateManager.MenuIndex);
+        menuUI.Margin = config.GetMargin();
+        AddElement(menuUI);
+    }
+
+    public void Update(GameStateManager gameStateManager)
+    {
+        if (gameStateManager.IsUpdatedBoard)
+        {
+            setCurrentRendererBoard(gameStateManager);
+        }
+
+        foreach (UIElement element in elements)
+        {
+            element.update(gameStateManager);
+        }
+    }
+
+    public void Draw()
+    {
+        foreach (UIElement element in elements)
+        {
+            element.draw();
+        }
     }
 }

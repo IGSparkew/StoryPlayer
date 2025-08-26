@@ -8,38 +8,40 @@ For a long time later:
 - add sound 
 - add image
 - add editing system
+- Render config as board file and global
 
 
 Things ok:
 - Renderer Working
 - GameScreen interact with Default Stories
-- Futur:
-    - Change menue index with limit of what is show
-    - add switched board function in gameStateManager 
-        - with index fix get List of key 
-        - get key selected
-        - update gameStateManager current board
-    - Add StoryDefault in Json and add Parser
-        - add system who parse first settings.json to get config of stories and get the first board
-        - remove StoryDefault.cs
-    - Add Items
-    - Make action and script in python + add generic action
-    - Make internal script 
-    - Add OnEnter / OnExit event script
-    - Add UiElemnts : Selected / TextUI
-    - Make Rendere Less Magic number
+- Change menue index with limit of what is show
+- add switched board function in gameStateManager 
+    - with index fix get List of key 
+    - get key selected
+    - update gameStateManager current board
+- Add StoryDefault in Json and add Parser
+    - add system who parse first settings.json to get config of stories and get the first board
+    - remove StoryDefault.cs
+- Add Items
+- Make action and script in python + add generic action
+- Make internal script 
+- Add OnEnter / OnExit event script
+- Add UiElemnts : Selected / TextUI
+- Make Rendere Less Magic number
+- make an uiLayout who load the settings from story
 
 Futur later:
-    - Renderer working with element but add new way to setup board in renderer 
-        - No juste make an uiLayout who load the settings from story
+------------------------------------------------------------------------------------------------- va-0.2
+    - Add selecter to load stories (make in menu scene first add title screen later)s
     - add ui for player and board 
         - show inventory / message infos + (add in script api)
     - Add data file to get data for actor of story (ame, ennemies, etc..)
     - Add Actor Manager and move inventory to player actor
+------------------------------------------------------------------------------------------------- va-0.3
     - Add to script a system to hide menue
             - add field to action to hide some menu or make them none selectable or other color
     - Add CommandManager to let player write words
-    - Add selecter to load stories
+    
     - Add start init menu
     - on parse add verification on connection board existing
     - Add custom variable system 

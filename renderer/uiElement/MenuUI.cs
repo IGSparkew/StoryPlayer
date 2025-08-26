@@ -12,15 +12,19 @@ class MenuUI : UIElement
 
     public int Selected { get; set; }
 
-    public MenuUI(RenderPosition position, Color color, Font font, int fontSize, List<string> options, int selected = 0) : base(position, color)
+    public Vector2 SelectedPading { get; set; }
+
+    public MenuUI(RenderPosition position, Color color, Font font, int fontSize, List<string> options, Vector2 margin, Vector2 selectedPading, int selected = 0) : base(position, color)
     {
         Selected = selected;
         Font = font;
         FontSize = fontSize;
+        Margin = margin;
+        SelectedPading = selectedPading;
 
         Options = new List<TextUI>();
         init(options);
-        SelectedElement = new SelectedElement(new Vector2(10, 10), 1, RenderPosition._default(), color);
+        SelectedElement = new SelectedElement(SelectedPading, 1, RenderPosition._default(), color);
     }
 
     private void init(List<string> options)
@@ -30,6 +34,7 @@ class MenuUI : UIElement
             RenderPosition position = Position.Clone();
             position.AddGap(options.IndexOf(option) * (FontSize + 20), false);
             TextUI text = new TextUI(Font, FontSize, option, false, position, Color.White);
+            text.Margin = Margin;
             Options.Add(text);
         }
     }
@@ -38,15 +43,18 @@ class MenuUI : UIElement
     {
         foreach (TextUI option in Options)
         {
-            option.Position.Position += Margin;
-
             if (Options.IndexOf(option) == Selected)
             {
                 SelectedElement.textUI = option;
                 SelectedElement.draw();
             }
-            
+
             option.draw();
         }
+    }
+
+    public override void update(GameStateManager gmsm)
+    {
+        Selected = gmsm.MenuIndex;
     }
 }

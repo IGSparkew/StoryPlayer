@@ -16,8 +16,12 @@ public class SelectedElement : UIElement
     {
         if (textUI != null)
         {
-            Rectangle rec = RendererUtils.getBoundsOfText(textUI.Value, textUI.Position.Position, textUI.Font, textUI.FontSize, Margin);
+            Rectangle rec = RendererUtils.getBoundsOfText(textUI.Value, textUI.Position.Position + textUI.Margin, textUI.Font, textUI.FontSize, Margin);
             Raylib.DrawRectangleLinesEx(rec, ThickOfBound, Color);
         }
+    }
+
+    public override void update(GameStateManager gmsm)
+    {
     }
 }

@@ -72,4 +72,7 @@ public class TextUI : UIElement
         Raylib.DrawTextEx(Font, line, position + Margin, FontSize, 1.0f, Color);
     }
 
+    public override void update(GameStateManager gmsm)
+    {
+    }
 }

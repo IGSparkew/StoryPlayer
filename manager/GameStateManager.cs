@@ -20,6 +20,19 @@ public class GameStateManager
 
     public List<string> logs { get; set; } = new List<string>();
 
+    private bool isUpdatedBoard;
+
+    public bool IsUpdatedBoard
+    {
+        get
+        {
+            bool _v = isUpdatedBoard;
+            if (_v) isUpdatedBoard = false;
+
+            return _v;
+        }
+    }
+
     public GameStateManager()
     {
         inventory = new List<Item>();
@@ -30,10 +43,15 @@ public class GameStateManager
         scriptReader = ServiceLoader.GetService<IScriptReader>("ScriptReader");
         MenuIndex = 0;
         IsInputMenu = false;
+        isUpdatedBoard = false;
     }
 
     public void SetFlag(string flagName, bool value)
     {
+        if (flags.ContainsKey(flagName))
+        {
+            flags[flagName] = value;
+        }
         flags.Add(flagName, value);
     }
 
@@ -68,6 +86,8 @@ public class GameStateManager
             }
 
             currentBoard = board;
+
+            isUpdatedBoard = true;
 
             if (currentBoard.OnEnter != "")
             {

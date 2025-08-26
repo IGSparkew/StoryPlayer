@@ -6,11 +6,13 @@ class GameScene : Scene
     public override void init()
     {
         this.gameStateManager = storyParser.constructStoryContext("default_stories");
+        this.renderer.setCurrentRendererBoard(this.gameStateManager);
     }
 
     public override void update(float dt)
     {
-        // Update game scene components here
+        renderer.Update(gameStateManager);
+
         if (gameStateManager.IsInputMenu)
         {
             handleScripting();
@@ -49,6 +51,6 @@ class GameScene : Scene
 
     public override void draw()
     {
-        this.renderer.DrawBoard(gameStateManager);
+        this.renderer.Draw();
     }
 }

@@ -15,5 +15,7 @@ public abstract class UIElement
         this.Margin = Vector2.Zero;
     }
 
+    public abstract void update(GameStateManager gmsm);
+
     public abstract void draw();
 }

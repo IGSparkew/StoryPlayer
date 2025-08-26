@@ -1,4 +1,4 @@
-using System.Numerics;
+using System.ComponentModel;
 
 public enum RenderConfig
 {
@@ -7,5 +7,4 @@ public enum RenderConfig
     DOWN,
     RIGHT,
     LEFT
-
 }
