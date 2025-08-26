@@ -15,7 +15,7 @@ StoryPlayer is a C# application designed to help you create, manage, and play in
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/igsparkew/StoryPlayer.git
+    git clone https://github.com/IGSparkew/StoryPlayer.git
     ```
 2. Open the solution in Visual Studio.
 3. Build and run the project.
