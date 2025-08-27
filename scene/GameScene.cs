@@ -7,9 +7,9 @@ class GameScene : Scene
     {
         string storyName = "";
 
-        if (parameters.ContainsKey("selected_story"))
+        if (parameters.ContainsKey(SceneManager.SELECTED_STORY))
         {
-            storyName = parameters["selected_story"].ToString() ?? "";
+            storyName = parameters[SceneManager.SELECTED_STORY].ToString() ?? "";
         }
 
         if (string.IsNullOrEmpty(storyName))

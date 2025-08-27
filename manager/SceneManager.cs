@@ -10,12 +10,17 @@ class SceneManager : ISceneManager
     private Dictionary<string, Scene> scenes;
     private Scene? currentScene;
 
+
+    public static string SCENE_GAME_NAME = "Game";
+    public static string SCENE_MENU_NAME = "Menu";
+
+
     public SceneManager()
     {
         scenes = new Dictionary<string, Scene>();
         ServiceLoader.RegisterService<ISceneManager>("SceneManager", this);
-        scenes.Add("Menu", new MenuScene());
-        scenes.Add("Game", new GameScene());
+        scenes.Add(SceneManager.SCENE_MENU_NAME, new MenuScene());
+        scenes.Add(SceneManager.SCENE_GAME_NAME, new GameScene());
     }
 
     public void changeScene(string sceneName, Dictionary<string, object>? parameters = null)
