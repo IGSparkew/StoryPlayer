@@ -1,0 +1,9 @@
+{
+    "Name": "Town",
+    "Description": "Zombies are growing in number and strength. The townsfolk are struggling to defend their homes.",
+    "Connections": {
+        "Village": "To the west lies the village, a place of warmth and community.",
+        "Forest": "To the south stretches the forest, a place of mystery and adventure."
+    },
+    "OnEnter": "test"
+}

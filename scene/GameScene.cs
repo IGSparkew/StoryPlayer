@@ -3,9 +3,21 @@ using Raylib_cs;
 
 class GameScene : Scene
 {
-    public override void init()
+    public override void init(Dictionary<string, object> parameters)
     {
-        this.gameStateManager = storyParser.constructStoryContext("default_stories");
+        string storyName = "";
+
+        if (parameters.ContainsKey("selected_story"))
+        {
+            storyName = parameters["selected_story"].ToString() ?? "";
+        }
+
+        if (string.IsNullOrEmpty(storyName))
+        {
+           throw new Exception("Error no story selected");
+        }
+
+        this.gameStateManager = storyParser.constructStoryContext(storyName);
         this.renderer.setCurrentRendererBoard(this.gameStateManager);
     }
 

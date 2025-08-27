@@ -32,7 +32,7 @@ Things ok:
 
 Futur later:
 ------------------------------------------------------------------------------------------------- va-0.2
-    - Add selecter to load stories (make in menu scene first add title screen later)s
+    - Add selecter to load stories (make in menu scene first add title screen laters)
     - add ui for player and board 
         - show inventory / message infos + (add in script api)
     - Add data file to get data for actor of story (ame, ennemies, etc..)

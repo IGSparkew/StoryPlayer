@@ -1,0 +1,10 @@
+{
+    "Init" : "Village",
+    "Boards": ["Village", "Forest", "Town"],
+    "Items" : ["Health Potion"],
+    "UIelements": [
+        {"Type": "TextUI","Id": "Title", "Anchor": "left-top", "Margin": [10, 10]},
+        {"Type": "TextUI","Id": "Description", "Anchor": "center-top", "Margin": [-350, 100], "IsWrapped": true, "MaxWidth":600},
+        {"Type": "MenuUI","Id": "Options", "Anchor": "center-center", "Margin": [-350, 100]}
+    ]
+}

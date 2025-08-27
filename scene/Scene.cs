@@ -7,8 +7,6 @@ abstract class Scene {
 
     protected IStoryParser storyParser;
 
-
-
     public Scene()
     {
         sceneManager = ServiceLoader.GetService<ISceneManager>("SceneManager");
@@ -18,7 +16,7 @@ abstract class Scene {
         storyParser = ServiceLoader.GetService<IStoryParser>("StoryParser");
     }
 
-    public abstract void init();
+    public abstract void init(Dictionary<string, object> parameters);
     public abstract void update(float dt);
     public abstract void draw();
 

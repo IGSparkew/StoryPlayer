@@ -18,7 +18,7 @@ class Engine
         Renderer = new Renderer();
         StoryParser = new StoryParser();
         SceneManager = new SceneManager();
-        SceneManager.changeScene("Game");
+        SceneManager.changeScene("Menu");
         loop();
         exit();
     }

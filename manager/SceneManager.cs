@@ -1,6 +1,6 @@
 interface ISceneManager
 {
-    void changeScene(string sceneName);
+    void changeScene(string sceneName, Dictionary<string, object>? parameters = null);
     void update(float deltaTime);
     void draw();
 }
@@ -18,12 +18,18 @@ class SceneManager : ISceneManager
         scenes.Add("Game", new GameScene());
     }
 
-    public void changeScene(string sceneName)
+    public void changeScene(string sceneName, Dictionary<string, object>? parameters = null)
     {
         if (scenes.ContainsKey(sceneName))
         {
             currentScene = scenes[sceneName];
-            currentScene?.init();
+
+            if (parameters == null)
+            {
+                parameters = new Dictionary<string, object>();
+            }
+
+            currentScene?.init(parameters);
         }
     }
 
