@@ -7,11 +7,11 @@ class MenuScene : Scene
     private Dictionary<string, SettingStory> settingsStories;
     private List<string> stories;
     private int selectedIndex;
-
-    private MenuUI? menuUI;
-
     private Font font;
 
+    private MenuUI? menuUI;
+    private TextUI titleUI;
+    private int titleFontSize;
 
     // For logical scene and story
     private Dictionary<string, object> parameters;
@@ -22,6 +22,11 @@ class MenuScene : Scene
         this.stories = new List<string>();
         this.selectedIndex = 0;
         this.font = ServiceLoader.GetService<IResourceManager>("ResourceManager").GetFont("default");
+        this.titleFontSize = 40;
+        this.titleUI = new TextUI(this.font, this.titleFontSize, Settings.GAME_TITLE, false, new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER), Color.White);
+        Vector2 marginTitle = new Vector2(0, -200);
+        titleUI.Margin = marginTitle;
+        titleUI.Origin = RendererUtils.CalculateCenterOfText(titleUI);
         parameters = new Dictionary<string, object>();
     }
 
@@ -31,7 +36,8 @@ class MenuScene : Scene
         this.settingsStories = this.storyParser.GetSettingsStories();
         this.renderer.Clear();
         this.stories = this.settingsStories.Keys.ToList();
-        this.menuUI = new MenuUI(new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER), Color.White, font, 20, this.stories, new Vector2(-70, 0), new Vector2(10, 10), this.selectedIndex);
+        this.menuUI = new MenuUI(new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER), Color.White, font, 20, this.stories, new Vector2(-70, 0), new Vector2(10, 10), true, this.selectedIndex);
+        this.renderer.AddElement(this.titleUI);
         this.renderer.AddElement(this.menuUI);
     }
 

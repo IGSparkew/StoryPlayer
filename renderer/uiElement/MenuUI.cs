@@ -14,13 +14,16 @@ class MenuUI : UIElement
 
     public Vector2 SelectedPading { get; set; }
 
-    public MenuUI(RenderPosition position, Color color, Font font, int fontSize, List<string> options, Vector2 margin, Vector2 selectedPading, int selected = 0) : base(position, color)
+    public bool IsCenter { get; set; }
+
+    public MenuUI(RenderPosition position, Color color, Font font, int fontSize, List<string> options, Vector2 margin, Vector2 selectedPading, bool isCenter = false, int selected = 0) : base(position, color)
     {
         Selected = selected;
         Font = font;
         FontSize = fontSize;
         Margin = margin;
         SelectedPading = selectedPading;
+        IsCenter = isCenter;
 
         Options = new List<TextUI>();
         init(options);
@@ -34,6 +37,7 @@ class MenuUI : UIElement
             RenderPosition position = Position.Clone();
             position.AddGap(options.IndexOf(option) * (FontSize + 20), false);
             TextUI text = new TextUI(Font, FontSize, option, false, position, Color.White);
+            text.Origin = IsCenter ? RendererUtils.CalculateCenterOfText(text) : Vector2.Zero;
             text.Margin = Margin;
             Options.Add(text);
         }

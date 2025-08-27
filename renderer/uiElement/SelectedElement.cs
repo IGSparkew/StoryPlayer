@@ -6,7 +6,7 @@ public class SelectedElement : UIElement
     public float ThickOfBound { get; set; }
     public TextUI? textUI {get; set;}
 
-    public SelectedElement(Vector2 margin, float thickOfBound, RenderPosition position,  Color color) : base(position , color)
+    public SelectedElement(Vector2 margin, float thickOfBound, RenderPosition position, Color color) : base(position, color)
     {
         Margin = margin;
         ThickOfBound = thickOfBound;
@@ -16,7 +16,7 @@ public class SelectedElement : UIElement
     {
         if (textUI != null)
         {
-            Rectangle rec = RendererUtils.getBoundsOfText(textUI.Value, textUI.Position.Position + textUI.Margin, textUI.Font, textUI.FontSize, Margin);
+            Rectangle rec = RendererUtils.getBoundsOfText(textUI.Value, textUI.Position.Position + textUI.Margin, textUI.Font, textUI.FontSize, Margin, 1.0f,textUI.Origin);
             Raylib.DrawRectangleLinesEx(rec, ThickOfBound, Color);
         }
     }

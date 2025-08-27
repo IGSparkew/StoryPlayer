@@ -99,7 +99,7 @@ class Renderer : IRenderer
 
         RenderPosition position = PositionConfigResolver.resolvePosition(config.Anchor);
         //TODO: make padding in LayoutConfig
-        MenuUI menuUI = new MenuUI(position, Color.White, _defaultFont, _defaultFontSize, options, config.GetMargin(), new Vector2(10, 10),gameStateManager.MenuIndex);
+        MenuUI menuUI = new MenuUI(position, Color.White, _defaultFont, _defaultFontSize, options, config.GetMargin(), new Vector2(10, 10), false, gameStateManager.MenuIndex);
         menuUI.Margin = config.GetMargin();
         AddElement(menuUI);
     }
