@@ -29,16 +29,16 @@ Things ok:
 - Add UiElemnts : Selected / TextUI
 - Make Rendere Less Magic number
 - make an uiLayout who load the settings from story
+- Add selecter to load stories (make in menu scene first add title screen laters)
 
 Futur later:
 ------------------------------------------------------------------------------------------------- va-0.2
-    - Add selecter to load stories (make in menu scene first add title screen laters)
+    - Add data file to get data for actor of story (ame, ennemies, etc..)
     - add ui for player and board 
         - show inventory / message infos + (add in script api)
-    - Add data file to get data for actor of story (ame, ennemies, etc..)
     - Add Actor Manager and move inventory to player actor
 ------------------------------------------------------------------------------------------------- va-0.3
-    - Add to script a system to hide menue
+    - Add to script a system to hide/show menu
             - add field to action to hide some menu or make them none selectable or other color
     - Add CommandManager to let player write words
     
