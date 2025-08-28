@@ -38,7 +38,7 @@ Contributions are welcome! Please submit issues or pull requests.
 
 ## ☕ Support & Coffee Tips
 
-If you enjoy using StoryPlayer and want to support development, consider buying me a coffee [buymecoffe](buymeacoffee.com/alexrobbrez)🍵
+If you enjoy using StoryPlayer and want to support development, consider buying me a coffee [buymecoffe](https://buymeacoffee.com/alexrobbrez)🍵
 
 ## License 📄
 
