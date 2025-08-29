@@ -10,21 +10,43 @@ class MenuScene : Scene
     private Font font;
 
     private MenuUI? menuUI;
+
+    private Vector2 marginMenu;
+
+    private Vector2 selectedPadding;
+
+    private RenderPosition renderPositionMenu;
+
+    private int menuFontSize;
+
+
     private TextUI titleUI;
     private int titleFontSize;
+    private Vector2 marginTitle;
+
+    private RenderPosition renderPositionTitle;
+
+    private Color color;
 
     // For logical scene and story
     private Dictionary<string, object> parameters;
 
     public MenuScene()
     {
+        this.selectedIndex = 0;
+        this.titleFontSize = 40;
+        this.marginMenu = Vector2.Zero;
+        this.renderPositionMenu = new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER);
+        this.renderPositionTitle = new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER);
+        this.color = Color.White;
+        this.marginTitle = new Vector2(0, -200);
+        this.menuFontSize = 20;
+        this.selectedPadding = new Vector2(10, 10);
+
         this.settingsStories = new Dictionary<string, SettingStory>();
         this.stories = new List<string>();
-        this.selectedIndex = 0;
         this.font = ServiceLoader.GetService<IResourceManager>("ResourceManager").GetFont("default");
-        this.titleFontSize = 40;
-        this.titleUI = new TextUI(this.font, this.titleFontSize, Settings.GAME_TITLE, false, new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER), Color.White);
-        Vector2 marginTitle = new Vector2(0, -200);
+        this.titleUI = new TextUI(this.font, this.titleFontSize, Settings.GAME_TITLE, false, this.renderPositionTitle, color);
         titleUI.Margin = marginTitle;
         titleUI.Origin = RendererUtils.CalculateCenterOfText(titleUI);
         parameters = new Dictionary<string, object>();
@@ -36,7 +58,7 @@ class MenuScene : Scene
         this.settingsStories = this.storyParser.GetSettingsStories();
         this.renderer.Clear();
         this.stories = this.settingsStories.Keys.ToList();
-        this.menuUI = new MenuUI(new RenderPosition(RenderConfig.CENTER, RenderConfig.CENTER), Color.White, font, 20, this.stories, Vector2.Zero, new Vector2(10, 10), true, this.selectedIndex);
+        this.menuUI = new MenuUI(this.renderPositionMenu, color, font, this.menuFontSize, this.stories, this.marginMenu, this.selectedPadding, true, this.selectedIndex);
         this.renderer.AddElement(this.titleUI);
         this.renderer.AddElement(this.menuUI);
     }

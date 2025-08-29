@@ -13,6 +13,7 @@ class SceneManager : ISceneManager
 
     public static string SCENE_GAME_NAME = "Game";
     public static string SCENE_MENU_NAME = "Menu";
+    public static string SELECTED_STORY = "SELECTED_STORY";
 
 
     public SceneManager()

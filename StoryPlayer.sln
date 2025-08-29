@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryPlayer", "StoryPlayer.csproj", "{B5779548-A55E-344C-1FF4-A19133CD91CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5779548-A55E-344C-1FF4-A19133CD91CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5779548-A55E-344C-1FF4-A19133CD91CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5779548-A55E-344C-1FF4-A19133CD91CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5779548-A55E-344C-1FF4-A19133CD91CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCC08F0B-DAF9-4018-9EAD-797CD1B1D7B8}
+	EndGlobalSection
+EndGlobal

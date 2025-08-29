@@ -30,7 +30,7 @@ class Engine
 
     private void loadDefaultResources()
     {
-        RessourceManager.LoadFont("default", Settings.ASSET_PATH + "BoldPixels1.4.ttf");
+        RessourceManager.LoadFont(RessourceManager.DEFAULT_FONT_NAME, Settings.ASSET_PATH + "BoldPixels1.4.ttf");
     }
 
     private void loop()
