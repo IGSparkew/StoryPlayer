@@ -5,7 +5,7 @@ interface IResourceManager
     void LoadTexture(string name, string path);
     void LoadFont(string name, string path);
     Texture2D GetTexture(string name);
-    Font GetFont(string name);
+    Font GetFont(string name="");
 
     void UnloadAllResources();
 }

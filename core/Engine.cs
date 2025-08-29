@@ -31,6 +31,7 @@ class Engine
     private void loadDefaultResources()
     {
         RessourceManager.LoadFont(RessourceManager.DEFAULT_FONT_NAME, Settings.ASSET_PATH + "BoldPixels1.4.ttf");
+        RessourceManager.LoadTexture("default", Settings.ASSET_PATH + "ti-99-4a.gif");
     }
 
     private void loop()
