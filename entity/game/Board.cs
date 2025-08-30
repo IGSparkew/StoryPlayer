@@ -7,6 +7,8 @@ public class Board
 
     public List<Action> Actions { get; set; }
 
+    public List<Event> Events { get; set; } 
+
     // script name to execute on enter board, if empty execute nothing
     public string OnEnter { get; set; }
 
@@ -14,16 +16,17 @@ public class Board
     public string OnExit { get; set; }
 
 
-    public Board(string name, string description) : this(name, description, new Dictionary<string, string>(), new List<Action>(), "", "")
+    public Board(string name, string description) : this(name, description, new Dictionary<string, string>(), new List<Action>(), new List<Event>(), "", "")
     {
     }
 
-    public Board(string name, string description, Dictionary<string, string> connections, List<Action> actions, String onEnter, String onExit)
+    public Board(string name, string description, Dictionary<string, string> connections, List<Action> actions, List<Event> events, string onEnter, string onExit)
     {
         Name = name;
         Description = description;
         Connections = connections;
         Actions = actions;
+        Events = events;
         OnEnter = onEnter;
         OnExit = onExit;
     }
@@ -39,7 +42,7 @@ public class Board
 
         foreach (var action in Actions)
         {
-            if (action.IsGuided)
+            if (action.Show && !action.Blocked)
             {
                 limit += 1;
             }

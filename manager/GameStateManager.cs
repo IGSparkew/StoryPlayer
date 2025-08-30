@@ -99,12 +99,38 @@ public class GameStateManager
 
     public void update()
     {
+        foreach (string flag in flags.Keys.ToList())
+        {
+            if (flag.StartsWith("#") && flags[flag])
+            {
+                foreach (Event evt in currentBoard.Events)
+                {
+                    if (string.Equals(evt.Flag, flag))
+                    {
+                        // Execute the event
+                        this.executeEvent(evt);
+                    }
+                }
+
+
+
+            }
+
+        }
+
+
         if (logs.Count > 0)
         {
             Console.WriteLine(logs[0]);
             logs.RemoveAt(0);
         }
     }
+
+     private void executeEvent(Event evt)
+    {
+        
+    }
+
 
     public void AddItemInWorld(Item item)
     {

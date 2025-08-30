@@ -1,8 +1,0 @@
-{
-    "Name": "Village",
-    "Description": "A small village nestled between rolling hills, surrounded by a sturdy stone wall. The air is filled with the scent of fresh bread from the local bakery, and villagers bustle about their daily routines. Children play near a bubbling fountain in the center square, while farmers lead their livestock through winding cobblestone streets. Beyond the village, the forest looms to the north and the grand silhouette of a castle rises to the east.",
-    "Connections": {
-        "Forest": "To the north lies the forest, a place of mystery and adventure.",
-        "Town": "To the east stands the town, a place of warmth and community."
-    }
-}

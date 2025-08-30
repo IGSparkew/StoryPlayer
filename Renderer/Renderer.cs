@@ -91,9 +91,9 @@ class Renderer : IRenderer
         List<string> options = board.Connections.Values.ToList<string>();
         foreach (Action action in board.Actions)
         {
-            if (action.IsGuided)
+            if (action.Show)
             {
-                options.Add(action.Name);
+                options.Add(action.Description);
             }
         }
 

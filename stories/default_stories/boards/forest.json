@@ -10,11 +10,25 @@
             "Name": "Loot",
             "Description": "Search the area for hidden treasures.",
             "Script": "add_item",
-            "IsGuided": true,
-            "IsGlobal": true,
             "Args": {
                 "item": "Health Potion"
             }
+        }
+    ],
+    "Events": [
+        {
+            "Type": "VIEW",
+            "TypeOutput": "CONNECTOR",
+            "Output": "Village",
+            "Flag": "#go_village",
+            "Default": "HIDE"
+        },
+        {
+            "Type": "MOVE",
+            "TypeOutput": "BOARD",
+            "Output": "Castle",
+            "Flag": "#move_castle",
+            "Default": ""
         }
     ]
 }

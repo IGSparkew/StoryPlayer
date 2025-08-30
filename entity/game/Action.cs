@@ -3,23 +3,27 @@ public class Action
 
     public string Name { get; set; }
     public string Description { get; set; }
-    public bool IsGuided { get; set; }
-    public bool Active { get; set; }
     public string Script { get; set; }
+
+    public bool Show { get; set; }
+
+    public bool Blocked { get; set; }
+
     public bool IsGlobal { get; set; }
+
     public Dictionary<string, string> Args { get; set; }
 
-    public Action(string name, string description, bool isGuided, string script, Dictionary<string, string> args, bool isGlobal = false)
+    public Action(string name, string description, string script, bool isGlobal, Dictionary<string, string> args)
     {
         Name = name;
         Description = description;
-        IsGuided = isGuided;
         Script = script;
-        Active = true;
-        Args = args;
         IsGlobal = isGlobal;
+        Args = args;
+        Show = true;
+        Blocked = false;
     }
 
-    public Action() : this("", "", false, "", new Dictionary<string, string>(), true) { }
+    public Action() : this("", "", "", false, new Dictionary<string, string>()) { }
 
 }

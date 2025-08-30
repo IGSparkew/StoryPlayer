@@ -1,5 +1,6 @@
 
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 interface IStoryParser
 {
@@ -11,10 +12,16 @@ interface IStoryParser
 class StoryParser : IStoryParser
 {
     private Dictionary<string, SettingStory> settingsStories;
+    private JsonSerializerOptions jsonSerializerOptions;
 
     public StoryParser()
     {
         settingsStories = new Dictionary<string, SettingStory>();
+        jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumConverter()}
+        };
         LoadSettingsStories();
         ServiceLoader.RegisterService<IStoryParser>("StoryParser", this);
     }
@@ -62,7 +69,7 @@ class StoryParser : IStoryParser
         foreach (var boardFile in boardFiles)
         {
             var json = File.ReadAllText(boardFile);
-            Board? board = JsonSerializer.Deserialize<Board>(json);
+            Board? board = JsonSerializer.Deserialize<Board>(json, this.jsonSerializerOptions);
             if (board != null)
             {
                 boards.Add(board);
@@ -82,7 +89,7 @@ class StoryParser : IStoryParser
         foreach (var itemFile in itemFiles)
         {
             var json = File.ReadAllText(itemFile);
-            Item? item = JsonSerializer.Deserialize<Item>(json);
+            Item? item = JsonSerializer.Deserialize<Item>(json, this.jsonSerializerOptions);
             if (item != null)
             {
                 items.Add(item);
@@ -106,7 +113,7 @@ class StoryParser : IStoryParser
             if (File.Exists(path))
             {
                 var json = File.ReadAllText(path);
-                SettingStory? settingStory = JsonSerializer.Deserialize<SettingStory>(json);
+                SettingStory? settingStory = JsonSerializer.Deserialize<SettingStory>(json, this.jsonSerializerOptions);
                 if (settingStory != null)
                 {
                     settingStory.Path = dir;
