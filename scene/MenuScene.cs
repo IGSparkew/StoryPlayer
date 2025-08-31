@@ -5,7 +5,7 @@ using Raylib_cs;
 class MenuScene : Scene
 {
     private Dictionary<string, SettingStory> settingsStories;
-    private List<string> stories;
+    private Dictionary<string, string> stories;
     private int selectedIndex;
     private Font font;
     private Color color;
@@ -38,12 +38,12 @@ class MenuScene : Scene
         this.menuFontSize = 20;
         this.selectedPadding = new Vector2(10, 10);
         this.font = ServiceLoader.GetService<IResourceManager>("ResourceManager").GetFont(RessourceManager.DEFAULT_FONT_NAME);
-        this.stories = new List<string>();
+        this.stories = new Dictionary<string, string>();
         this.settingsStories = new Dictionary<string, SettingStory>();
         parameters = new Dictionary<string, object>();
 
 
-        this.titleUI = new TextUI(this.font, this.titleFontSize, Settings.GAME_TITLE, false, this.renderPositionTitle, color);
+        this.titleUI = new TextUI(this.font, this.titleFontSize, Settings.GAME_TITLE, false, "Title",this.renderPositionTitle, color);
         titleUI.Margin = marginTitle;
         titleUI.Origin = RendererUtils.CalculateCenterOfText(titleUI);
     }
@@ -52,8 +52,13 @@ class MenuScene : Scene
     {
         this.settingsStories = this.storyParser.GetSettingsStories();
         this.renderer.Clear();
-        this.stories = this.settingsStories.Keys.ToList();
-        this.menuUI = new MenuUI(this.renderPositionMenu, color, font, this.menuFontSize, this.stories, this.marginMenu, this.selectedPadding, true, this.selectedIndex);
+
+        foreach (var setting in this.settingsStories)
+        {
+            this.stories.Add(setting.Key, setting.Value.Title);
+        }
+
+        this.menuUI = new MenuUI("Menu", this.renderPositionMenu, color, font, this.menuFontSize, this.stories, this.marginMenu, this.selectedPadding, true, this.selectedIndex);
         this.renderer.AddElement(this.titleUI);
         this.renderer.AddElement(this.menuUI);
     }
@@ -69,7 +74,7 @@ class MenuScene : Scene
             this.selectedIndex = (this.selectedIndex - 1 + this.stories.Count) % this.stories.Count;
         } else if (Raylib.IsKeyPressed(KeyboardKey.Enter))
         {
-            parameters.Add(SceneManager.SELECTED_STORY, this.stories[this.selectedIndex]);
+            parameters.Add(SceneManager.SELECTED_STORY, this.stories.Keys.ToList()[this.selectedIndex]);
             this.sceneManager.changeScene(SceneManager.SCENE_GAME_NAME, parameters);
         }
 

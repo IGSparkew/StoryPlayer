@@ -36,21 +36,6 @@ public class Board
 
     }
 
-    public int getLimitSelected()
-    {
-        int limit = Connections.Count - 1;
-
-        foreach (var action in Actions)
-        {
-            if (action.Show && !action.Blocked)
-            {
-                limit += 1;
-            }
-        }
-
-        return limit;
-    }
-
     public bool isAction(int index)
     {
         return index > (Connections.Count - 1);

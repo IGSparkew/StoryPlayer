@@ -4,5 +4,6 @@
     "Connections": {
         "Forest": "To the north lies the forest, a place of mystery and adventure.",
         "Castle": "To the east stands the castle, home to the local lord."
-    }
+    },
+    "OnEnter": "village"
 }

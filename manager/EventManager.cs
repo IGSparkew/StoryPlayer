@@ -5,9 +5,6 @@ public class EventManager
     private IRenderer renderer;
     private IScriptReader scriptReader;
 
-    public event Action<Event> OnEventTriggered;
-
-
     public EventManager(GameStateManager gmsm)
     {
         gameStateManager = gmsm;
@@ -38,14 +35,54 @@ public class EventManager
         }
     }
 
+
+    private MenuUI GetMenuUI()
+    {
+        SettingStory? settingStory = gameStateManager.SettingStory;
+        if (settingStory == null)
+        {
+            throw new Exception("Error no setting story found");
+        }
+
+        string elementId = "";
+
+        settingStory.UIelements.ForEach(config =>
+        {
+            if (config.Type == LayoutConfigType.MenuUI)
+            {
+                elementId = config.Id;
+            }
+        });
+
+        if (elementId == "")
+        {
+            throw new Exception("Error no menu ui found");
+        }
+
+        MenuUI menu = (MenuUI)this.renderer.GetUiElement(elementId);
+        return menu;
+    }
+
     private void HandleView(Event evt)
     {
         // Handle view event
+        MenuUI menu = GetMenuUI();
+
+        foreach (var option in menu.Options)
+        {
+            if (option.Id == evt.Output)
+            {
+                option.IsVisible = !option.IsVisible;
+                break;
+            }
+        }
     }
 
     private void HandleBlocked(Event evt)
     {
         // Handle blocked event
+        MenuUI menu = GetMenuUI();
+        menu.blockedOption(evt.Output);
     }
 
     private void HandleCustom(Event evt)

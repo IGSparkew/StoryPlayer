@@ -5,16 +5,6 @@
         "Village": "To the south lies the village, a place of warmth and community.",
         "Castle": "To the east stands the castle, home to the local lord."
     },
-    "Actions": [
-        {
-            "Name": "Loot",
-            "Description": "Search the area for hidden treasures.",
-            "Script": "add_item",
-            "Args": {
-                "item": "Health Potion"
-            }
-        }
-    ],
     "Events": [
         {
             "Type": "VIEW",

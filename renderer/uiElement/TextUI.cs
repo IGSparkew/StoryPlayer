@@ -16,7 +16,7 @@ public class TextUI : UIElement
 
     public Vector2 Origin { get; set; }
 
-    public TextUI(Font font, int fontSize, string value, bool isWrapped, RenderPosition position, Color color, int maxWidth = 0, bool renderBounds = false) : base(position, color)
+    public TextUI(Font font, int fontSize, string value, bool isWrapped, string Id, RenderPosition position, Color color, int maxWidth = 0, bool renderBounds = false) : base(Id, position, color)
     {
         Font = font;
         FontSize = fontSize;
@@ -27,7 +27,7 @@ public class TextUI : UIElement
         Origin = Vector2.Zero;
     }
 
-    public override void draw()
+    public override void drawElement()
     {
         if (IsWrapped)
         {
@@ -37,6 +37,11 @@ public class TextUI : UIElement
         {
             drawText(Position.Position, Value);
         }
+    }
+
+    public void setBlocked()
+    {
+        this.Color = Color.Gray;
     }
 
     private void drawWrapped()

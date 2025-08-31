@@ -5,5 +5,24 @@
         "Village": "To the west lies the village, a place of warmth and community.",
         "Forest": "To the south stretches the forest, a place of mystery and adventure."
     },
+    "Actions": [
+        {
+            "Name": "Loot",
+            "Description": "Search the area for hidden treasures.",
+            "Script": "add_item",
+            "Args": {
+                "item": "Health Potion"
+            }
+        }
+    ],
+    "Events": [
+        {
+            "Type": "VIEW",
+            "TypeOutput": "ACTION",
+            "Output": "Loot",
+            "Flag": "#can_loot",
+            "Default": "HIDE"
+        }
+    ],
     "OnEnter": "test"
 }

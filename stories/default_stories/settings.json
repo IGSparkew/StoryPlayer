@@ -1,5 +1,6 @@
 {
-    "Init" : "Village",
+    "Title": "The Great Adventure",
+    "Init" : "Forest",
     "Boards": ["Village", "Forest", "Castle"],
     "Items" : ["Health Potion"],
     "UIelements": [

@@ -12,7 +12,7 @@ public class Event
 
     public string Next { get; set; }
 
-    public string Default;
+    public string Default { get; set; }
 
     public Event(EventType type, string output, EventTypeOutput typeOutput, string flag, string script, string next, string defaultValue)
     {

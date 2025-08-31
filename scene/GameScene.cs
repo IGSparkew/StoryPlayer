@@ -41,19 +41,48 @@ class GameScene : Scene
 
         gameStateManager.update();
 
+        Console.WriteLine(GetMenuUI().getLimitSelected());
+
         if (Raylib.IsKeyPressed(KeyboardKey.Up))
         {
-            gameStateManager.DecrementMenuIndex();
+            gameStateManager.MenuIndex = (gameStateManager.MenuIndex - 1 + GetMenuUI().getLimitSelected()) % GetMenuUI().getLimitSelected();
         }
         else if (Raylib.IsKeyPressed(KeyboardKey.Down))
         {
-            gameStateManager.IncrementMenuIndex();
+            gameStateManager.MenuIndex = (gameStateManager.MenuIndex + 1) % GetMenuUI().getLimitSelected();
         }
         else if (Raylib.IsKeyPressed(KeyboardKey.Enter))
         {
             gameStateManager.ExecuteAction();
         }
 
+    }
+
+     private MenuUI GetMenuUI()
+    {
+        SettingStory? settingStory = gameStateManager.SettingStory;
+        if (settingStory == null)
+        {
+            throw new Exception("Error no setting story found");
+        }
+
+        string elementId = "";
+
+        settingStory.UIelements.ForEach(config =>
+        {
+            if (config.Type == LayoutConfigType.MenuUI)
+            {
+                elementId = config.Id;
+            }
+        });
+
+        if (elementId == "")
+        {
+            throw new Exception("Error no menu ui found");
+        }
+
+        MenuUI menu = (MenuUI)this.renderer.GetUiElement(elementId);
+        return menu;
     }
 
     private void handleScripting()

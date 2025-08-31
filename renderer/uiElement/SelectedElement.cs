@@ -6,13 +6,13 @@ public class SelectedElement : UIElement
     public float ThickOfBound { get; set; }
     public TextUI? textUI {get; set;}
 
-    public SelectedElement(Vector2 margin, float thickOfBound, RenderPosition position, Color color) : base(position, color)
+    public SelectedElement(string id,Vector2 margin, float thickOfBound, RenderPosition position, Color color) : base(id,position, color)
     {
         Margin = margin;
         ThickOfBound = thickOfBound;
     }
 
-    public override void draw()
+    public override void drawElement()
     {
         if (textUI != null)
         {

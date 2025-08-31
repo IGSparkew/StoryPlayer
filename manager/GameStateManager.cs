@@ -22,6 +22,8 @@ public class GameStateManager
 
     private bool isUpdatedBoard;
 
+    private EventManager eventManager;
+
     public bool IsUpdatedBoard
     {
         get
@@ -41,6 +43,7 @@ public class GameStateManager
         flags = new Dictionary<string, bool>();
         worldItems = new Dictionary<string, Item>();
         scriptReader = ServiceLoader.GetService<IScriptReader>("ScriptReader");
+        this.eventManager = new EventManager(this);
         MenuIndex = 0;
         IsInputMenu = false;
         isUpdatedBoard = false;
@@ -99,6 +102,9 @@ public class GameStateManager
 
     public void update()
     {
+
+        if (currentBoard == null) return;
+
         foreach (string flag in flags.Keys.ToList())
         {
             if (flag.StartsWith("#") && flags[flag])
@@ -108,14 +114,10 @@ public class GameStateManager
                     if (string.Equals(evt.Flag, flag))
                     {
                         // Execute the event
-                        this.executeEvent(evt);
+                        this.eventManager.TriggerEvent(evt);
                     }
                 }
-
-
-
             }
-
         }
 
 
@@ -125,12 +127,6 @@ public class GameStateManager
             logs.RemoveAt(0);
         }
     }
-
-     private void executeEvent(Event evt)
-    {
-        
-    }
-
 
     public void AddItemInWorld(Item item)
     {
@@ -167,38 +163,14 @@ public class GameStateManager
         return inventory.Contains(item);
     }
 
-    public void IncrementMenuIndex()
-    {
-        MenuIndex++;
-        if (currentBoard != null)
-        {
-            if (MenuIndex > currentBoard.getLimitSelected())
-            {
-                MenuIndex = 0;
-            }
-        }
-    }
-
-    public void DecrementMenuIndex()
-    {
-        MenuIndex--;
-        if (currentBoard != null)
-        {
-            if (MenuIndex < 0)
-            {
-                MenuIndex = currentBoard.getLimitSelected();
-            }
-        }
-    }
-
-
     public void ExecuteAction()
     {
         if (currentBoard == null) return;
 
         if (currentBoard.isAction(MenuIndex))
         {
-            int index = MenuIndex - currentBoard.Connections.Count;
+            // TODO change how to move from board
+            int index = MenuIndex;
             Action action = currentBoard.Actions[index];
             String result = this.BoardManager.ExecuteAction(action, this, scriptReader);
             // Todo add something to do with result

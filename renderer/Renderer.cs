@@ -7,6 +7,7 @@ interface IRenderer
     void Clear();
     void setCurrentRendererBoard(GameStateManager gameStateManager);
     void Update(GameStateManager gameStateManager);
+    UIElement GetUiElement(string id);
     void Draw();
 
 }
@@ -18,11 +19,11 @@ class Renderer : IRenderer
     private Font _defaultFont;
     private static int _defaultFontSize = 20;
 
-    List<UIElement> elements;
+    Dictionary<string, UIElement> elements;
 
     public Renderer()
     {
-        elements = new List<UIElement>();
+        elements = new Dictionary<string, UIElement>();
         ServiceLoader.RegisterService<Renderer>("Renderer", this);
         _resourceManager = ServiceLoader.GetService<IResourceManager>("ResourceManager");
         _defaultFont = _resourceManager.GetFont("default");
@@ -35,7 +36,7 @@ class Renderer : IRenderer
 
     public void AddElement(UIElement element)
     {
-        this.elements.Add(element);
+        this.elements.Add(element.Id, element);
     }
 
     public void setCurrentRendererBoard(GameStateManager gameStateManager)
@@ -63,10 +64,10 @@ class Renderer : IRenderer
         {
             switch (config.Type)
             {
-                case "TextUI":
+                case LayoutConfigType.TextUI:
                     addTextUIElement(config, board);
                     break;
-                case "MenuUI":
+                case LayoutConfigType.MenuUI:
                     addMenuUIElement(config, board, gameStateManager);
                     break;
                 default:
@@ -81,26 +82,39 @@ class Renderer : IRenderer
         LayoutConfigResolver resolver = LayoutConfigResolver.resolver(config, board);
         RenderPosition position = PositionConfigResolver.resolvePosition(config.Anchor);
 
-        TextUI textUI = new TextUI(_defaultFont, _defaultFontSize, resolver.getValue(), config.IsWrapped, position, Color.White, config.MaxWidth);
+        TextUI textUI = new TextUI(_defaultFont, _defaultFontSize, resolver.getValue(), config.IsWrapped, config.Id, position, Color.White, config.MaxWidth);
         textUI.Margin = config.GetMargin();
         AddElement(textUI);
     }
 
     private void addMenuUIElement(LayoutConfig config, Board board, GameStateManager gameStateManager)
     {
-        List<string> options = board.Connections.Values.ToList<string>();
+        Dictionary<string, string> options = board.Connections;
         foreach (Action action in board.Actions)
         {
             if (action.Show)
             {
-                options.Add(action.Description);
+                options.Add(action.Name, action.Description);
             }
         }
 
         RenderPosition position = PositionConfigResolver.resolvePosition(config.Anchor);
         //TODO: make padding in LayoutConfig
-        MenuUI menuUI = new MenuUI(position, Color.White, _defaultFont, _defaultFontSize, options, config.GetMargin(), new Vector2(10, 10), false, gameStateManager.MenuIndex);
+        MenuUI menuUI = new MenuUI(config.Id, position, Color.White, _defaultFont, _defaultFontSize, options, config.GetMargin(), new Vector2(10, 10), false, gameStateManager.MenuIndex);
         menuUI.Margin = config.GetMargin();
+        foreach (var evt in board.Events)
+        {
+            Console.WriteLine($"{evt.Type} - {evt.TypeOutput} - {evt.Output} - {evt.Default}");
+            if (evt.Type == EventType.VIEW && (evt.TypeOutput == EventTypeOutput.CONNECTOR || evt.TypeOutput == EventTypeOutput.ACTION) && evt.Default == "HIDE")
+            {
+                menuUI.renderOption(evt.Output, false);
+            }
+            else if (evt.Type == EventType.BLOCKED && (evt.TypeOutput == EventTypeOutput.CONNECTOR || evt.TypeOutput == EventTypeOutput.ACTION) && evt.Default == "BLOCK")
+            {
+                menuUI.blockedOption(evt.Output);
+            }
+        }
+
         AddElement(menuUI);
     }
 
@@ -111,17 +125,29 @@ class Renderer : IRenderer
             setCurrentRendererBoard(gameStateManager);
         }
 
-        foreach (UIElement element in elements)
+        foreach (var element in elements)
         {
-            element.update(gameStateManager);
+            element.Value.update(gameStateManager);
+        }
+    }
+
+    public UIElement GetUiElement(string id)
+    {
+        if (elements.TryGetValue(id, out var element))
+        {
+            return element;
+        }
+        else
+        {
+            throw new KeyNotFoundException($"UI Element with ID '{id}' not found.");
         }
     }
 
     public void Draw()
     {
-        foreach (UIElement element in elements)
+        foreach (var element in elements)
         {
-            element.draw();
+            element.Value.draw();
         }
     }
 }

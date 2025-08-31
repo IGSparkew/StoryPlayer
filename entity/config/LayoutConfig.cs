@@ -2,7 +2,7 @@ using System.Numerics;
 
 public class LayoutConfig
 {
-    public string Type { get; set; }
+    public LayoutConfigType Type { get; set; }
 
     public string Id { get; set; }
     public string Anchor { get; set; }
@@ -16,7 +16,7 @@ public class LayoutConfig
 
     public LayoutConfig()
     {
-        Type = "";
+        Type = LayoutConfigType.NONE;
         Anchor = "";
         Id = "";
         IsWrapped = false;
