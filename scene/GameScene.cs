@@ -41,8 +41,6 @@ class GameScene : Scene
 
         gameStateManager.update();
 
-        Console.WriteLine(GetMenuUI().getLimitSelected());
-
         if (Raylib.IsKeyPressed(KeyboardKey.Up))
         {
             gameStateManager.MenuIndex = (gameStateManager.MenuIndex - 1 + GetMenuUI().getLimitSelected()) % GetMenuUI().getLimitSelected();

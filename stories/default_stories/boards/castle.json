@@ -9,6 +9,7 @@
         {
             "Name": "Loot",
             "Description": "Search the area for hidden treasures.",
+            "IsGlobal": true,
             "Script": "add_item",
             "Args": {
                 "item": "Health Potion"

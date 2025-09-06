@@ -55,7 +55,10 @@ public class GameStateManager
         {
             flags[flagName] = value;
         }
-        flags.Add(flagName, value);
+        else
+        {
+            flags.Add(flagName, value);
+        }
     }
 
     public bool GetFlag(string flagName)

@@ -73,6 +73,7 @@ public class EventManager
             if (option.Id == evt.Output)
             {
                 option.IsVisible = !option.IsVisible;
+                gameStateManager.SetFlag(evt.Flag, false);
                 break;
             }
         }

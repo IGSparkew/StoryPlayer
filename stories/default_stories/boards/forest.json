@@ -9,8 +9,8 @@
         {
             "Type": "VIEW",
             "TypeOutput": "CONNECTOR",
-            "Output": "Village",
-            "Flag": "#go_village",
+            "Output": "Castle",
+            "Flag": "#view_castle",
             "Default": "HIDE"
         },
         {

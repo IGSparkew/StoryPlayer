@@ -2,27 +2,17 @@ using System.Numerics;
 
 public class LayoutConfig
 {
-    public LayoutConfigType Type { get; set; }
+    public LayoutConfigType Type { get; set; } = LayoutConfigType.NONE;
 
-    public string Id { get; set; }
-    public string Anchor { get; set; }
+    public string Id { get; set; } = String.Empty;
+    public string Anchor { get; set; } = String.Empty;
 
-    public bool IsWrapped { get; set; }
+    public bool IsWrapped { get; set; } = false;
 
     // check if size of tow
-    public List<int> Margin { get; set; }
+    public List<int> Margin { get; set; } = new List<int>();
 
-    public int MaxWidth { get; set; }
-
-    public LayoutConfig()
-    {
-        Type = LayoutConfigType.NONE;
-        Anchor = "";
-        Id = "";
-        IsWrapped = false;
-        Margin = new List<int>();
-        MaxWidth = 0;
-    }
+    public int MaxWidth { get; set; } = 0;
 
     public Vector2 GetMargin()
     {
