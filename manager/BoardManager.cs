@@ -12,6 +12,11 @@ public class BoardManager
         boards.Add(name, board);
     }
 
+    public bool HasBoard(string name)
+    {
+        return boards.ContainsKey(name);
+    }
+
     public Board GetBoard(string name)
     {
         if (!boards.ContainsKey(name))

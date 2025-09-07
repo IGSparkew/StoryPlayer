@@ -1,52 +1,19 @@
 public class Board
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Name { get; set; } = String.Empty;
+    public string Description { get; set; } = String.Empty;
 
-    public Dictionary<string, string> Connections { get; set; }
+    public Dictionary<string, string> Connections { get; set; } = new Dictionary<string, string>();
 
-    public List<Action> Actions { get; set; }
+    public List<Action> Actions { get; set; } = new List<Action>();
+
+    public List<Event> Events { get; set; } = new List<Event>();
 
     // script name to execute on enter board, if empty execute nothing
-    public string OnEnter { get; set; }
+    public string OnEnter { get; set; } = String.Empty;
 
     // script name to execute on exit board, if empty execute nothing
-    public string OnExit { get; set; }
-
-
-    public Board(string name, string description) : this(name, description, new Dictionary<string, string>(), new List<Action>(), "", "")
-    {
-    }
-
-    public Board(string name, string description, Dictionary<string, string> connections, List<Action> actions, String onEnter, String onExit)
-    {
-        Name = name;
-        Description = description;
-        Connections = connections;
-        Actions = actions;
-        OnEnter = onEnter;
-        OnExit = onExit;
-    }
-
-    public Board() : this("", "")
-    {
-
-    }
-
-    public int getLimitSelected()
-    {
-        int limit = Connections.Count - 1;
-
-        foreach (var action in Actions)
-        {
-            if (action.IsGuided)
-            {
-                limit += 1;
-            }
-        }
-
-        return limit;
-    }
+    public string OnExit { get; set; } = String.Empty;
 
     public bool isAction(int index)
     {

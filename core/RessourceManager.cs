@@ -5,7 +5,7 @@ interface IResourceManager
     void LoadTexture(string name, string path);
     void LoadFont(string name, string path);
     Texture2D GetTexture(string name);
-    Font GetFont(string name);
+    Font GetFont(string name="");
 
     void UnloadAllResources();
 }
@@ -16,6 +16,8 @@ class RessourceManager : IResourceManager
 
     public static Dictionary<String, Texture2D> textures = new Dictionary<string, Texture2D>();
     public static Dictionary<String, Font> fonts = new Dictionary<string, Font>();
+
+    public static string DEFAULT_FONT_NAME = "default";
 
     public RessourceManager()
     {
@@ -49,9 +51,14 @@ class RessourceManager : IResourceManager
         return textures.ContainsKey(name) ? textures[name] : throw new KeyNotFoundException($"Texture '{name}' not found.");
     }
 
-    public Font GetFont(string name)
+    public Font GetFont(string name="")
     {
-        return fonts.ContainsKey(name) ? fonts[name] : throw new KeyNotFoundException($"Font '{name}' not found.");
+        if (fonts.ContainsKey(name)) {
+            return fonts[name];
+        } else {
+            Console.WriteLine($"Error can't found Font with name: '{name}', load default font!");
+            return fonts[DEFAULT_FONT_NAME];
+        }    
     }
 
     public void UnloadAllResources()

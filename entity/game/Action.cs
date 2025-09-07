@@ -1,25 +1,15 @@
 public class Action
 {
+    public string Name { get; set; } = String.Empty;
+    public string Description { get; set; } = String.Empty;
+    public string Script { get; set; } = String.Empty;
 
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public bool IsGuided { get; set; }
-    public bool Active { get; set; }
-    public string Script { get; set; }
-    public bool IsGlobal { get; set; }
-    public Dictionary<string, string> Args { get; set; }
+    public bool Show { get; set; } = true;
 
-    public Action(string name, string description, bool isGuided, string script, Dictionary<string, string> args, bool isGlobal = false)
-    {
-        Name = name;
-        Description = description;
-        IsGuided = isGuided;
-        Script = script;
-        Active = true;
-        Args = args;
-        IsGlobal = isGlobal;
-    }
+    public bool Blocked { get; set; } = false;
 
-    public Action() : this("", "", false, "", new Dictionary<string, string>(), true) { }
+    public bool IsGlobal { get; set; } = false;
+
+    public Dictionary<string, string> Args { get; set; } = new Dictionary<string, string>();
 
 }

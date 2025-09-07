@@ -1,22 +1,14 @@
 
 public class SettingStory
 {
-    public string Init { get; set; }
-    public List<string> Boards { get; set; }
-    public List<string> Items { get; set; }
+    public string Title { get; set; } = String.Empty;
 
-    public String Path { get; set; }
+    public string Init { get; set; } = String.Empty;
+    public List<string> Boards { get; set; } = new List<string>();
+    public List<string> Items { get; set; } = new List<string>();
 
-    public List<LayoutConfig> UIelements { get; set; }
+    public String Path { get; set; } = String.Empty;
 
-    public SettingStory(string init, List<string> boards, List<string> items, string path, List<LayoutConfig> layoutConfigs)
-    {
-        Init = init;
-        Boards = boards;
-        Items = items;
-        Path = path;
-        UIelements = layoutConfigs;
-    }
+    public List<LayoutConfig> UIelements { get; set; } = new List<LayoutConfig>();
 
-    public SettingStory() : this("", new List<string>(), new List<string>(), "", new List<LayoutConfig>()) {}
 }

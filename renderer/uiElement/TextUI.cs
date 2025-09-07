@@ -14,7 +14,9 @@ public class TextUI : UIElement
 
     public int FontSize { get; set; }
 
-    public TextUI(Font font, int fontSize, string value, bool isWrapped, RenderPosition position, Color color, int maxWidth = 0, bool renderBounds = false) : base(position, color)
+    public Vector2 Origin { get; set; }
+
+    public TextUI(Font font, int fontSize, string value, bool isWrapped, string Id, RenderPosition position, Color color, int maxWidth = 0, bool renderBounds = false) : base(Id, position, color)
     {
         Font = font;
         FontSize = fontSize;
@@ -22,9 +24,10 @@ public class TextUI : UIElement
         IsWrapped = isWrapped;
         MaxWidth = maxWidth;
         RenderBounds = renderBounds;
+        Origin = Vector2.Zero;
     }
 
-    public override void draw()
+    public override void drawElement()
     {
         if (IsWrapped)
         {
@@ -34,6 +37,11 @@ public class TextUI : UIElement
         {
             drawText(Position.Position, Value);
         }
+    }
+
+    public void setBlocked()
+    {
+        this.Color = Color.Gray;
     }
 
     private void drawWrapped()
@@ -69,7 +77,7 @@ public class TextUI : UIElement
 
     private void drawText(Vector2 position, string line)
     {
-        Raylib.DrawTextEx(Font, line, position + Margin, FontSize, 1.0f, Color);
+        Raylib.DrawTextPro(Font, line, position + Margin, Origin, 0.0f, FontSize, 1.0f, Color);
     }
 
     public override void update(GameStateManager gmsm)

@@ -29,25 +29,55 @@ Things ok:
 - Add UiElemnts : Selected / TextUI
 - Make Rendere Less Magic number
 - make an uiLayout who load the settings from story
+- Add selecter to load stories (make in menu scene first add title screen laters)
 
 Futur later:
-------------------------------------------------------------------------------------------------- va-0.2
-    - Add selecter to load stories (make in menu scene first add title screen later)s
+    - Add data file to get data for actor of story (ame, ennemies, etc..)
     - add ui for player and board 
         - show inventory / message infos + (add in script api)
-    - Add data file to get data for actor of story (ame, ennemies, etc..)
     - Add Actor Manager and move inventory to player actor
-------------------------------------------------------------------------------------------------- va-0.3
-    - Add to script a system to hide menue
+    - Add to script a system to hide/show menu
             - add field to action to hide some menu or make them none selectable or other color
-    - Add CommandManager to let player write words
-    
+    - Add CommandManager to let player write words   
     - Add start init menu
     - on parse add verification on connection board existing
     - Add custom variable system 
         - if had {#name} in a text renderer replace by string value
-        - add color system with hexa
-        
-Think of:
-    - Add trigger basic in engine + custom trigger with script
-        - Input tags... (find other input)    
+
+RoadMap:
+A-0.2: 
+- Add menu
+- Add more UI components
+- Simplify Action (Name, description, file) as default show 
+- Add event , input , flag, type, script(optionnal if type = custom), next (optional), default (optional)
+A-0.3:
+- Add data
+- Add component UI for player data
+- Add custom Assets to script folder
+- Add Image UI
+A-0.4: 
+- Add custom board renderer
+- Refacto parser with JsonRaw object
+- Add Validator on load story
+- Add Factory to generate Basic Story folder/file/etc..
+A-0.5:
+- Add namespace
+- Add Test 
+- Add command input
+- Add command and/or menu option to generate story
+A-0.6:
+- Add Sound assets custom
+- Add Sound background
+- Launch sound with script / observable flag
+- Add CommandInput system
+A-0.7:
+- Add Game menu
+- Add variable inside text
+A-0.8:
+- Add new Layout system to renderer
+
+
+Type Event: View(show/hide), Blocked (non selectable), custom (call script)
+Input: Action, Connector, Event
+Next: call other flag (set the next flag to true) to do event chain
+Default: default value of Input
