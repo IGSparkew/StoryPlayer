@@ -1,6 +1,5 @@
 public class EventManager
 {
-
     private GameStateManager gameStateManager;
     private IRenderer renderer;
     private IScriptReader scriptReader;

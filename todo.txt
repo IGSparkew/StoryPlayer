@@ -73,6 +73,8 @@ A-0.6:
 A-0.7:
 - Add Game menu
 - Add variable inside text
+A-0.8:
+- Add new Layout system to renderer
 
 
 Type Event: View(show/hide), Blocked (non selectable), custom (call script)

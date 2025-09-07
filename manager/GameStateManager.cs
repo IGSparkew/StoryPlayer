@@ -86,9 +86,15 @@ public class GameStateManager
         Board board = BoardManager.GetBoard(boardName);
         if (board != null)
         {
+            string output = "";
+
             if (currentBoard != null && currentBoard.OnExit != "")
             {
-                logs.Add("On Exit: " + scriptReader.run(currentBoard.OnExit, this, false));
+                output = scriptReader.run(currentBoard.OnExit, this, false);
+                if (!String.IsNullOrEmpty(output))
+                {
+                    logs.Add("On Exit: " + output);
+                }
             }
 
             currentBoard = board;
@@ -97,7 +103,11 @@ public class GameStateManager
 
             if (currentBoard.OnEnter != "")
             {
-                logs.Add("On Enter: " + scriptReader.run(currentBoard.OnEnter, this, false));
+                output = scriptReader.run(currentBoard.OnEnter, this, false);
+                if (!String.IsNullOrEmpty(output))
+                {
+                    logs.Add("On Enter: " + output);
+                }
             }
 
 
@@ -106,30 +116,8 @@ public class GameStateManager
 
     public void update()
     {
-
-        if (currentBoard == null) return;
-
-        foreach (string flag in flags.Keys.ToList())
-        {
-            if (flag.StartsWith("#") && flags[flag])
-            {
-                foreach (Event evt in currentBoard.Events)
-                {
-                    if (string.Equals(evt.Flag, flag))
-                    {
-                        // Execute the event
-                        this.eventManager.TriggerEvent(evt);
-                    }
-                }
-            }
-        }
-
-
-        if (logs.Count > 0)
-        {
-            Console.WriteLine(logs[0]);
-            logs.RemoveAt(0);
-        }
+        UpdateEvents();
+        UpdateLogs();
     }
 
     public void AddItemInWorld(Item item)
@@ -149,7 +137,7 @@ public class GameStateManager
 
     public Item? GetItemFromWorld(string itemName)
     {
-       return worldItems.ContainsKey(itemName) ? worldItems[itemName] : null;
+        return worldItems.ContainsKey(itemName) ? worldItems[itemName] : null;
     }
 
     public void AddItemInInventory(Item item)
@@ -178,12 +166,41 @@ public class GameStateManager
             Action action = currentBoard.Actions[index];
             String result = this.BoardManager.ExecuteAction(action, this, scriptReader);
             logs.Add(result);
-            // Todo add something to do with result
         }
         else
         {
             string key = currentBoard.Connections.Keys.ElementAt(MenuIndex);
             this.SetCurrentBoard(key);
+        }
+    }
+
+    private void UpdateLogs()
+    {
+        if (logs.Count > 0)
+        {
+            //TODO change this to a better way to show logs
+            Console.WriteLine(logs[0]);
+            logs.RemoveAt(0);
+        }
+    }
+
+    private void UpdateEvents()
+    {
+        if (currentBoard == null) return;
+
+        foreach (string flag in flags.Keys.ToList())
+        {
+            if (flag.StartsWith("#") && flags[flag])
+            {
+                foreach (Event evt in currentBoard.Events)
+                {
+                    if (string.Equals(evt.Flag, flag))
+                    {
+                        // Execute the event
+                        this.eventManager.TriggerEvent(evt);
+                    }
+                }
+            }
         }
     }
 }
