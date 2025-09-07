@@ -100,6 +100,7 @@ public class GameStateManager
                 logs.Add("On Enter: " + scriptReader.run(currentBoard.OnEnter, this, false));
             }
 
+
         }
     }
 
@@ -173,9 +174,10 @@ public class GameStateManager
         if (currentBoard.isAction(MenuIndex))
         {
             // TODO change how to move from board
-            int index = MenuIndex;
+            int index = MenuIndex - currentBoard.Connections.Count;
             Action action = currentBoard.Actions[index];
             String result = this.BoardManager.ExecuteAction(action, this, scriptReader);
+            logs.Add(result);
             // Todo add something to do with result
         }
         else

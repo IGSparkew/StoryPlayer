@@ -72,7 +72,6 @@ class StoryParser : IStoryParser
             Board? board = JsonSerializer.Deserialize<Board>(json, this.jsonSerializerOptions);
             if (board != null)
             {
-                Console.WriteLine($"Loaded board: {board.Name} with event: {board.Events.Count}");
                 boards.Add(board);
             }
         }

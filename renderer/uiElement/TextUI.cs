@@ -16,8 +16,6 @@ public class TextUI : UIElement
 
     public Vector2 Origin { get; set; }
 
-    public bool IsAction { get; set; } = false;
-
     public TextUI(Font font, int fontSize, string value, bool isWrapped, string Id, RenderPosition position, Color color, int maxWidth = 0, bool renderBounds = false) : base(Id, position, color)
     {
         Font = font;

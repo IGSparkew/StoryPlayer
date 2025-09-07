@@ -73,7 +73,6 @@ class MenuUI : UIElement
     public void renderOption(string optionId, bool value)
     {
         int index = Options.FindIndex(o => o.Id == optionId);
-        Console.WriteLine(index);
         if (index != -1)
         {
             Options[index].IsVisible = value;

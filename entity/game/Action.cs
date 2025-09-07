@@ -1,6 +1,5 @@
 public class Action
 {
-
     public string Name { get; set; } = String.Empty;
     public string Description { get; set; } = String.Empty;
     public string Script { get; set; } = String.Empty;

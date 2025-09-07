@@ -89,7 +89,8 @@ class Renderer : IRenderer
 
     private void addMenuUIElement(LayoutConfig config, Board board, GameStateManager gameStateManager)
     {
-        Dictionary<string, string> options = board.Connections;
+        Dictionary<string, string> options = new Dictionary<string, string>(board.Connections);
+
         foreach (Action action in board.Actions)
         {
             if (action.Show)
@@ -104,7 +105,6 @@ class Renderer : IRenderer
         menuUI.Margin = config.GetMargin();
         foreach (var evt in board.Events)
         {
-            Console.WriteLine($"{evt.Type} - {evt.TypeOutput} - {evt.Output} - {evt.Default}");
             if (evt.Type == EventType.VIEW && (evt.TypeOutput == EventTypeOutput.CONNECTOR || evt.TypeOutput == EventTypeOutput.ACTION) && evt.Default == "HIDE")
             {
                 menuUI.renderOption(evt.Output, false);
